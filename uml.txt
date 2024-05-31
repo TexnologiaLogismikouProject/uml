@@ -1,0 +1,109 @@
+@startuml
+class App {
+  - selected_tab: String
+  - uploaded_file: File
+  - data: DataTable
+  + run()
+  + load_data()
+  + visualize_data()
+  + perform_ml()
+  + show_info()
+}
+
+class DataLoader {
+  - data: DataTable
+  + load_data(file: File): DataFrame
+}
+
+class Visualization {
+  - data: DataTable
+  + PCA Plot
+  + T-SNE Plot
+  + EDA Histogram
+  + EDA Scatter Plot
+}
+
+class PCAPlot {
+  - data: DataTable
+  + visualize_plot
+}
+
+class TSNEPlot {
+  - data: DataTable
+  + visualize_plot
+}
+
+class EDAHistogram {
+  - data: DataTable
+  + visualize_plot
+}
+
+class EDAScatterPlot {
+  - data: DataTable
+  + visualize_plot
+}
+
+Visualization --> PCAPlot : uses
+Visualization --> TSNEPlot : uses
+Visualization --> EDAHistogram : uses
+Visualization --> EDAScatterPlot : uses
+
+class MachineLearning {
+  - data: DataTable
+  + Classification
+  + Clustering
+}
+
+class Classification {
+  - data: DataTable
+}
+
+class KNearestNeighbors {
+  - data: DataTable
+  + classify(data: DataFrame, features: List) 
+}
+
+class SupportVectorMachine {
+  - data: DataTable
+  + classify(data: DataFrame, features: List) 
+}
+
+class Clustering {
+  - data: DataTable
+}
+
+class KMeans {
+  - data: DataTable
+  + cluster(data: DataFrame, features: List)
+}
+
+class GaussianMixture {
+  - data: DataTable
+  + cluster(data: DataFrame, features: List) 
+}
+
+MachineLearning --> Classification : uses
+MachineLearning --> Clustering : uses
+
+Classification --> KNearestNeighbors : uses
+Classification --> SupportVectorMachine : uses
+
+Clustering --> KMeans : uses
+Clustering --> GaussianMixture : uses
+
+class StreamlitNavigationBar {
+  - data: DataTable
+  + st_navbar(options: List): String
+}
+
+class Info {
+  - data: DataTable
+  + Info_tab()
+}
+
+App --> DataLoader : uses
+App --> Visualization : uses
+App --> MachineLearning : uses
+App --> StreamlitNavigationBar : uses
+App --> Info : uses
+@enduml
